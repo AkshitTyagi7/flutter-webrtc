@@ -339,9 +339,6 @@ class GetUserMediaImpl {
     }
 
     private ConstraintsMap getUserAudio(ConstraintsMap constraints, MediaStream stream) {
-        AudioManager audioManager = (AudioManager) applicationContext.getSystemService(Context.AUDIO_SERVICE);
-        audioManager.setMode(AudioManager.MODE_IN_COMMUNICATION);
-
         AudioSwitchManager.instance.start();
         MediaConstraints audioConstraints = new MediaConstraints();
         String deviceId = null;
@@ -1286,6 +1283,7 @@ class GetUserMediaImpl {
             return -1;
         }
         android.media.AudioManager audioManager = ((android.media.AudioManager) applicationContext.getSystemService(Context.AUDIO_SERVICE));
+        audioManager.setMode(android.media.AudioManager.MODE_IN_COMMUNICATION);
         final AudioDeviceInfo[] devices = audioManager.getDevices(android.media.AudioManager.GET_DEVICES_INPUTS);
         for (int i = 0; i < devices.length; i++) {
             if (devices[i].getId() == deviceInfo.getId()) {
