@@ -1,28 +1,6 @@
 #ifndef PLUGINS_FLUTTER_WEBRTC_PLUGIN_CPP_H_
 #define PLUGINS_FLUTTER_WEBRTC_PLUGIN_CPP_H_
 
-#if defined(_WINDOWS)
-
-#include <flutter_plugin_registrar.h>
-#ifdef FLUTTER_PLUGIN_IMPL
-#define FLUTTER_PLUGIN_EXPORT __declspec(dllexport)
-#else
-#define FLUTTER_PLUGIN_EXPORT __declspec(dllimport)
-#endif
-
-#if defined(__cplusplus)
-extern "C" {
-#endif
-
-FLUTTER_PLUGIN_EXPORT void FlutterWebRTCPluginRegisterWithRegistrar(
-    FlutterDesktopPluginRegistrarRef registrar);
-
-#if defined(__cplusplus)
-}  // extern "C"
-#endif
-
-#else
-
 #include <flutter_linux/flutter_linux.h>
 G_BEGIN_DECLS
 
@@ -31,6 +9,10 @@ G_BEGIN_DECLS
 #else
 #define FLUTTER_PLUGIN_EXPORT
 #endif
+
+namespace flutter_webrtc_plugin {
+class FlutterWebRTC;
+}  // namespace flutter_webrtc_plugin
 
 typedef struct _FlutterWebrtcPlugin FlutterWebrtcPlugin;
 typedef struct {
@@ -42,8 +24,8 @@ FLUTTER_PLUGIN_EXPORT GType flutter_webrtc_plugin_get_type();
 FLUTTER_PLUGIN_EXPORT void flutter_web_r_t_c_plugin_register_with_registrar(
     FlPluginRegistrar* registrar);
 
-G_END_DECLS
+FLUTTER_PLUGIN_EXPORT flutter_webrtc_plugin::FlutterWebRTC* flutter_webrtc_plugin_get_shared_instance();
 
-#endif
+G_END_DECLS
 
 #endif  // PLUGINS_FLUTTER_WEBRTC_PLUGIN_CPP_H_

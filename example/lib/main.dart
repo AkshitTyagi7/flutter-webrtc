@@ -10,7 +10,7 @@ import 'package:flutter_webrtc_example/src/capture_frame_sample.dart';
 import 'src/device_enumeration_sample.dart';
 import 'src/get_display_media_sample.dart';
 import 'src/get_user_media_sample.dart'
-    if (dart.library.html) 'src/get_user_media_sample_web.dart';
+    if (dart.library.js_interop) 'src/get_user_media_sample_web.dart';
 import 'src/loopback_data_channel_sample.dart';
 import 'src/loopback_sample_unified_tracks.dart';
 import 'src/route_item.dart';
@@ -29,7 +29,7 @@ Future<bool> startForegroundService() async {
   final androidConfig = FlutterBackgroundAndroidConfig(
     notificationTitle: 'Title of the notification',
     notificationText: 'Text of the notification',
-    notificationImportance: AndroidNotificationImportance.Default,
+    notificationImportance: AndroidNotificationImportance.normal,
     notificationIcon: AndroidResource(
         name: 'background_icon',
         defType: 'drawable'), // Default is ic_launcher from folder mipmap

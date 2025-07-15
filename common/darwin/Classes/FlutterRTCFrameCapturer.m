@@ -41,7 +41,7 @@
   CVPixelBufferRef pixelBufferRef;
   bool shouldRelease;
   if (![buffer isKindOfClass:[RTCCVPixelBuffer class]]) {
-    pixelBufferRef = [self convertToCVPixelBuffer:frame];
+    pixelBufferRef = [FlutterRTCFrameCapturer convertToCVPixelBuffer:frame];
     shouldRelease = true;
   } else {
     pixelBufferRef = ((RTCCVPixelBuffer*)buffer).pixelBuffer;
@@ -108,7 +108,7 @@
   });
 }
 
-- (CVPixelBufferRef)convertToCVPixelBuffer:(RTCVideoFrame*)frame {
++ (CVPixelBufferRef)convertToCVPixelBuffer:(RTCVideoFrame*)frame {
   id<RTCI420Buffer> i420Buffer = [frame.buffer toI420];
   CVPixelBufferRef outputPixelBuffer;
   size_t w = (size_t)roundf(i420Buffer.width);
@@ -137,7 +137,7 @@
                        dstUV:dstUV
                  dstStrideUV:(int)dstUVStride
                        width:i420Buffer.width
-                       width:i420Buffer.height];
+                      height:i420Buffer.height];
   } else {
     uint8_t* dst = CVPixelBufferGetBaseAddress(outputPixelBuffer);
     const size_t bytesPerRow = CVPixelBufferGetBytesPerRow(outputPixelBuffer);
